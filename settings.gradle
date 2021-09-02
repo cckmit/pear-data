@@ -1,0 +1,2 @@
+rootProject.name = 'pear-data'
+include 'pear-data-master'

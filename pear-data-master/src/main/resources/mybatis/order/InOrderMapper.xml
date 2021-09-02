@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pear.data.master.core.mapper.InOrderMapper">
+
+
+
+
+    <!-- 定义数据库基本列,只适用代替单表的*-->
+    <sql id="Base_Column_List">
+        a.id,a.my_trade_no,a.out_trade_no,a.trade_no,a.channel_id,a.channel_name,a.pf_geway_code_id,a.pf_geway_code,a.code_name,
+        a.geway_id,a.geway_name,a.geway_code_id,a.geway_code,a.geway_code_name,a.channel,a.total_amount,a.service_charge,a.actual_money,
+        a.order_status,a.pull_order_status,a.pull_order_code_type,a.notify_url,a.my_notify_url,a.interface_ver,a.return_url,a.extra_return_param,
+        a.service_ip,a.client_ip,a.sign,a.sub_time,a.product_name,a.product_code,a.trade_time,a.replenish_type,a.is_profit,a.data_explain,
+        a.curday,a.curhour,a.curminute,a.run_num,a.run_status,a.send_num,a.send_status,
+        a.create_time,a.update_time,a.yn
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim  suffixOverrides="," >
+            <if test="id != null and id != '' " >
+                and a.id = #{id}
+            </if>
+            <if test="myTradeNo != null and myTradeNo != '' " >
+                and a.my_trade_no = #{myTradeNo}
+            </if>
+            <if test="outTradeNo != null and outTradeNo != '' " >
+                and a.out_trade_no = #{outTradeNo}
+            </if>
+            <if test="tradeNo != null and tradeNo != '' " >
+                and a.trade_no = #{tradeNo}
+            </if>
+            <if test="channelId != null and channelId != '' " >
+                and a.channel_id = #{channelId}
+            </if>
+            <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
+                and a.pf_geway_code_id = #{pfGewayCodeId}
+            </if>
+            <if test="pfGewayCode != null and pfGewayCode != '' " >
+                and a.pf_geway_code = #{pfGewayCode}
+            </if>
+            <if test="codeName != null and codeName != '' " >
+                and a.code_name = #{codeName}
+            </if>
+            <if test="gewayId != null and gewayId != '' " >
+                and a.geway_id = #{gewayId}
+            </if>
+            <if test="gewayName != null and gewayName != '' " >
+                and a.geway_name = #{gewayName}
+            </if>
+            <if test="gewayCodeId != null and gewayCodeId != '' " >
+                and a.geway_code_id = #{gewayCodeId}
+            </if>
+            <if test="gewayCode != null and gewayCode != '' " >
+                and a.geway_code = #{gewayCode}
+            </if>
+            <if test="gewayCodeName != null and gewayCodeName != '' " >
+                and a.geway_code_name = #{gewayCodeName}
+            </if>
+            <if test="channel != null and channel != '' " >
+                and a.channel = #{channel}
+            </if>
+            <if test="orderStatus != null and orderStatus != '' " >
+                and a.order_status = #{orderStatus}
+            </if>
+            <if test="pullOrderStatus != null and pullOrderStatus != '' " >
+                and a.pull_order_status = #{pullOrderStatus}
+            </if>
+            <if test="pullOrderCodeType != null and pullOrderCodeType != '' " >
+                and a.pull_order_code_type = #{pullOrderCodeType}
+            </if>
+            <if test="replenishType != null and replenishType != '' " >
+                and a.replenish_type = #{replenishType}
+            </if>
+            <if test="isProfit != null and isProfit != '' " >
+                and a.is_profit = #{isProfit}
+            </if>
+            and a.yn = 0
+
+        </trim>
+    </sql>
+
+    <!-- 查询条件_id -->
+    <sql id="Example_Where_Clause_id">
+        where 1=1
+        <trim  suffixOverrides="," >
+            <if test="id != null and id != '' " >
+                and a.id = #{id}
+            </if>
+            and a.yn =  0
+        </trim>
+    </sql>
+
+
+    <!-- 显示所有数据 -->
+    <select id="findAll" resultType="com.pear.data.master.core.model.order.InOrderModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_in_order a
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="findByCondition" parameterType="Object" resultType="com.pear.data.master.core.model.order.InOrderModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_in_order a
+        <include refid="Example_Where_Clause"/>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <!-- 根据条件查询信息-->
+    <select id="findByObject" parameterType="Object" resultType="com.pear.data.master.core.model.order.InOrderModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_in_order a
+        <include refid="Example_Where_Clause"/>
+        limit 1
+    </select>
+
+    <!-- 根据id查询信息-->
+    <select id="findById" parameterType="java.lang.Long" resultType="com.pear.data.master.core.model.order.InOrderModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_in_order a
+        <include refid="Example_Where_Clause_id"/>
+    </select>
+
+
+    <!-- 添加基本信息 -->
+    <insert id="add" parameterType="com.pear.data.master.core.model.order.InOrderModel" >
+        <!--<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">-->
+        <!--SELECT LAST_INSERT_ID() as id-->
+        <!--</selectKey>-->
+        insert into tb_pr_in_order
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="myTradeNo != null and myTradeNo != '' " >
+                my_trade_no,
+            </if>
+            <if test="outTradeNo != null and outTradeNo != '' " >
+                out_trade_no,
+            </if>
+            <if test="tradeNo != null and tradeNo != '' " >
+                trade_no,
+            </if>
+            <if test="channelId != null and channelId != '' " >
+                channel_id,
+            </if>
+            <if test="channelName != null and channelName != '' " >
+                channel_name,
+            </if>
+            <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
+                pf_geway_code_id,
+            </if>
+            <if test="pfGewayCode != null and pfGewayCode != '' " >
+                pf_geway_code,
+            </if>
+            <if test="codeName != null and codeName != '' " >
+                code_name,
+            </if>
+            <if test="gewayId != null and gewayId != '' " >
+                geway_id,
+            </if>
+            <if test="gewayName != null and gewayName != '' " >
+                geway_name,
+            </if>
+            <if test="gewayCodeId != null and gewayCodeId != '' " >
+                geway_code_id,
+            </if>
+            <if test="gewayCode != null and gewayCode != '' " >
+                geway_code,
+            </if>
+            <if test="gewayCodeName != null and gewayCodeName != '' " >
+                geway_code_name,
+            </if>
+            <if test="channel != null and channel != '' " >
+                channel,
+            </if>
+            <if test="totalAmount != null and totalAmount != '' " >
+                total_amount,
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                service_charge,
+            </if>
+            <if test="actualMoney != null and actualMoney != '' " >
+                actual_money,
+            </if>
+            <if test="orderStatus != null and orderStatus != '' " >
+                order_status,
+            </if>
+            <if test="pullOrderStatus != null and pullOrderStatus != '' " >
+                pull_order_status,
+            </if>
+            <if test="pullOrderCodeType != null and pullOrderCodeType != '' " >
+                pull_order_code_type,
+            </if>
+            <if test="notifyUrl != null and notifyUrl != '' " >
+                notify_url,
+            </if>
+            <if test="myNotifyUrl != null and myNotifyUrl != '' " >
+                my_notify_url,
+            </if>
+            <if test="interfaceVer != null and interfaceVer != '' " >
+                interface_ver,
+            </if>
+            <if test="returnUrl != null and returnUrl != '' " >
+                return_url,
+            </if>
+            <if test="extraReturnParam != null and extraReturnParam != '' " >
+                extra_return_param,
+            </if>
+            <if test="serviceIp != null and serviceIp != '' " >
+                service_ip,
+            </if>
+            <if test="clientIp != null and clientIp != '' " >
+                client_ip,
+            </if>
+            <if test="sign != null and sign != '' " >
+                sign,
+            </if>
+            <if test="subTime != null and subTime != '' " >
+                sub_time,
+            </if>
+            <if test="productName != null and productName != '' " >
+                product_name,
+            </if>
+            <if test="productCode != null and productCode != '' " >
+                product_code,
+            </if>
+            <if test="tradeTime != null and tradeTime != '' " >
+                trade_time,
+            </if>
+            <if test="replenishType != null and replenishType != '' " >
+                replenish_type,
+            </if>
+            <if test="isProfit != null and isProfit != '' " >
+                is_profit,
+            </if>
+            <if test="dataExplain != null and dataExplain != '' " >
+                data_explain,
+            </if>
+            <if test="curday != null and curday != '' " >
+                curday,
+            </if>
+            <if test="curhour != null and curhour != '' " >
+                curhour,
+            </if>
+            <if test="curminute != null and curminute != '' " >
+                curminute,
+            </if>
+            <if test="runNum != null and runNum != '' " >
+                run_num,
+            </if>
+            <if test="runStatus != null and runStatus != '' " >
+                run_status,
+            </if>
+            <if test="sendNum != null and sendNum != '' " >
+                send_num,
+            </if>
+            <if test="sendStatus != null and sendStatus != '' " >
+                send_status,
+            </if>
+            create_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="myTradeNo != null and myTradeNo != '' " >
+                <![CDATA[  #{myTradeNo}, ]]>
+            </if>
+            <if test="outTradeNo != null and outTradeNo != '' " >
+                <![CDATA[  #{outTradeNo}, ]]>
+            </if>
+            <if test="tradeNo != null and tradeNo != '' " >
+                <![CDATA[  #{tradeNo}, ]]>
+            </if>
+            <if test="channelId != null and channelId != '' " >
+                <![CDATA[  #{channelId}, ]]>
+            </if>
+            <if test="channelName != null and channelName != '' " >
+                <![CDATA[  #{channelName}, ]]>
+            </if>
+            <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
+                <![CDATA[  #{pfGewayCodeId}, ]]>
+            </if>
+            <if test="pfGewayCode != null and pfGewayCode != '' " >
+                <![CDATA[  #{pfGewayCode}, ]]>
+            </if>
+            <if test="codeName != null and codeName != '' " >
+                <![CDATA[  #{codeName}, ]]>
+            </if>
+            <if test="gewayId != null and gewayId != '' " >
+                <![CDATA[  #{gewayId}, ]]>
+            </if>
+            <if test="gewayName != null and gewayName != '' " >
+                <![CDATA[  #{gewayName}, ]]>
+            </if>
+            <if test="gewayCodeId != null and gewayCodeId != '' " >
+                <![CDATA[  #{gewayCodeId}, ]]>
+            </if>
+            <if test="gewayCode != null and gewayCode != '' " >
+                <![CDATA[  #{gewayCode}, ]]>
+            </if>
+            <if test="gewayCodeName != null and gewayCodeName != '' " >
+                <![CDATA[  #{gewayCodeName}, ]]>
+            </if>
+            <if test="channel != null and channel != '' " >
+                <![CDATA[  #{channel}, ]]>
+            </if>
+            <if test="totalAmount != null and totalAmount != '' " >
+                <![CDATA[  #{totalAmount}, ]]>
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                <![CDATA[  #{serviceCharge}, ]]>
+            </if>
+            <if test="actualMoney != null and actualMoney != '' " >
+                <![CDATA[  #{actualMoney}, ]]>
+            </if>
+            <if test="orderStatus != null and orderStatus != '' " >
+                <![CDATA[  #{orderStatus}, ]]>
+            </if>
+            <if test="pullOrderStatus != null and pullOrderStatus != '' " >
+                <![CDATA[  #{pullOrderStatus}, ]]>
+            </if>
+            <if test="pullOrderCodeType != null and pullOrderCodeType != '' " >
+                <![CDATA[  #{pullOrderCodeType}, ]]>
+            </if>
+            <if test="notifyUrl != null and notifyUrl != '' " >
+                <![CDATA[  #{notifyUrl}, ]]>
+            </if>
+            <if test="myNotifyUrl != null and myNotifyUrl != '' " >
+                <![CDATA[  #{myNotifyUrl}, ]]>
+            </if>
+            <if test="interfaceVer != null and interfaceVer != '' " >
+                <![CDATA[  #{interfaceVer}, ]]>
+            </if>
+            <if test="returnUrl != null and returnUrl != '' " >
+                <![CDATA[  #{returnUrl}, ]]>
+            </if>
+            <if test="extraReturnParam != null and extraReturnParam != '' " >
+                <![CDATA[  #{extraReturnParam}, ]]>
+            </if>
+            <if test="serviceIp != null and serviceIp != '' " >
+                <![CDATA[  #{serviceIp}, ]]>
+            </if>
+            <if test="clientIp != null and clientIp != '' " >
+                <![CDATA[  #{clientIp}, ]]>
+            </if>
+            <if test="sign != null and sign != '' " >
+                <![CDATA[  #{sign}, ]]>
+            </if>
+            <if test="subTime != null and subTime != '' " >
+                <![CDATA[  #{subTime}, ]]>
+            </if>
+            <if test="productName != null and productName != '' " >
+                <![CDATA[  #{productName}, ]]>
+            </if>
+            <if test="productCode != null and productCode != '' " >
+                <![CDATA[  #{productCode}, ]]>
+            </if>
+            <if test="tradeTime != null and tradeTime != '' " >
+                <![CDATA[  #{tradeTime}, ]]>
+            </if>
+            <if test="replenishType != null and replenishType != '' " >
+                <![CDATA[  #{replenishType}, ]]>
+            </if>
+            <if test="isProfit != null and isProfit != '' " >
+                <![CDATA[  #{isProfit}, ]]>
+            </if>
+            <if test="dataExplain != null and dataExplain != '' " >
+                <![CDATA[  #{dataExplain}, ]]>
+            </if>
+            <if test="curday != null and curday != '' " >
+                <![CDATA[  #{curday}, ]]>
+            </if>
+            <if test="curhour != null and curhour != '' " >
+                <![CDATA[  #{curhour}, ]]>
+            </if>
+            <if test="curminute != null and curminute != '' " >
+                <![CDATA[  #{curminute}, ]]>
+            </if>
+            <if test="runNum != null and runNum != '' " >
+                <![CDATA[  #{runNum}, ]]>
+            </if>
+            <if test="runStatus != null and runStatus != '' " >
+                <![CDATA[  #{runStatus}, ]]>
+            </if>
+            <if test="sendNum != null and sendNum != '' " >
+                <![CDATA[  #{sendNum}, ]]>
+            </if>
+            <if test="sendStatus != null and sendStatus != '' " >
+                <![CDATA[  #{sendStatus}, ]]>
+            </if>
+            NOW(),
+        </trim>
+    </insert>
+
+    <!-- 更新基本信息 -->
+    <update id="update" parameterType="com.pear.data.master.core.model.order.InOrderModel">
+        UPDATE tb_pr_in_order a
+        <trim prefix="set" suffixOverrides=",">
+            <if test="myTradeNo != null and myTradeNo != '' " >
+                a.my_trade_no = #{myTradeNo},
+            </if>
+            <if test="outTradeNo != null and outTradeNo != '' " >
+                a.out_trade_no = #{outTradeNo},
+            </if>
+            <if test="tradeNo != null and tradeNo != '' " >
+                a.trade_no = #{tradeNo},
+            </if>
+            <if test="channelId != null and channelId != '' " >
+                a.channel_id = #{channelId},
+            </if>
+            <if test="channelName != null and channelName != '' " >
+                a.channel_name = #{channelName},
+            </if>
+            <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
+                a.pf_geway_code_id = #{pfGewayCodeId},
+            </if>
+            <if test="pfGewayCode != null and pfGewayCode != '' " >
+                a.pf_geway_code = #{pfGewayCode},
+            </if>
+            <if test="codeName != null and codeName != '' " >
+                a.code_name = #{codeName},
+            </if>
+            <if test="gewayId != null and gewayId != '' " >
+                a.geway_id = #{gewayId},
+            </if>
+            <if test="gewayName != null and gewayName != '' " >
+                a.geway_name = #{gewayName},
+            </if>
+            <if test="gewayCodeId != null and gewayCodeId != '' " >
+                a.geway_code_id = #{gewayCodeId},
+            </if>
+            <if test="gewayCode != null and gewayCode != '' " >
+                a.geway_code = #{gewayCode},
+            </if>
+            <if test="gewayCodeName != null and gewayCodeName != '' " >
+                a.geway_code_name = #{gewayCodeName},
+            </if>
+            <if test="channel != null and channel != '' " >
+                a.channel = #{channel},
+            </if>
+            <if test="totalAmount != null and totalAmount != '' " >
+                a.total_amount = #{totalAmount},
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                a.service_charge = #{serviceCharge},
+            </if>
+            <if test="actualMoney != null and actualMoney != '' " >
+                a.actual_money = #{actualMoney},
+            </if>
+            <if test="orderStatus != null and orderStatus != '' " >
+                a.order_status = #{orderStatus},
+            </if>
+            <if test="pullOrderStatus != null and pullOrderStatus != '' " >
+                a.pull_order_status = #{pullOrderStatus},
+            </if>
+            <if test="pullOrderCodeType != null and pullOrderCodeType != '' " >
+                a.pull_order_code_type = #{pullOrderCodeType},
+            </if>
+            <if test="notifyUrl != null and notifyUrl != '' " >
+                a.notify_url = #{notifyUrl},
+            </if>
+            <if test="myNotifyUrl != null and myNotifyUrl != '' " >
+                a.my_notify_url = #{myNotifyUrl},
+            </if>
+            <if test="interfaceVer != null and interfaceVer != '' " >
+                a.interface_ver = #{interfaceVer},
+            </if>
+            <if test="returnUrl != null and returnUrl != '' " >
+                a.return_url = #{returnUrl},
+            </if>
+            <if test="extraReturnParam != null and extraReturnParam != '' " >
+                a.extra_return_param = #{extraReturnParam},
+            </if>
+            <if test="serviceIp != null and serviceIp != '' " >
+                a.service_ip = #{serviceIp},
+            </if>
+            <if test="clientIp != null and clientIp != '' " >
+                a.client_ip = #{clientIp},
+            </if>
+            <if test="sign != null and sign != '' " >
+                a.sign = #{sign},
+            </if>
+            <if test="subTime != null and subTime != '' " >
+                a.sub_time = #{subTime},
+            </if>
+            <if test="productName != null and productName != '' " >
+                a.product_name = #{productName},
+            </if>
+            <if test="productCode != null and productCode != '' " >
+                a.product_code = #{productCode},
+            </if>
+            <if test="tradeTime != null and tradeTime != '' " >
+                a.trade_time = #{tradeTime},
+            </if>
+            <if test="replenishType != null and replenishType != '' " >
+                a.replenish_type = #{replenishType},
+            </if>
+            <if test="isProfit != null and isProfit != '' " >
+                a.is_profit = #{isProfit},
+            </if>
+            <if test="dataExplain != null and dataExplain != '' " >
+                a.data_explain = #{dataExplain},
+            </if>
+            <if test="curday != null and curday != '' " >
+                a.curday = #{curday},
+            </if>
+            <if test="curhour != null and curhour != '' " >
+                a.curhour = #{curhour},
+            </if>
+            <if test="curminute != null and curminute != '' " >
+                a.curminute = #{curminute},
+            </if>
+            <if test="runNum != null and runNum != '' " >
+                a.run_num = #{runNum},
+            </if>
+            <if test="runStatus != null and runStatus != '' " >
+                a.run_status = #{runStatus},
+            </if>
+            <if test="sendNum != null and sendNum != '' " >
+                a.send_num = #{sendNum},
+            </if>
+            <if test="sendStatus != null and sendStatus != '' " >
+                a.send_status = #{sendStatus},
+            </if>
+            a.update_time = NOW(),
+        </trim>
+        where 1=1
+        and a.id = #{id}
+        and a.yn = 0
+    </update>
+
+    <!-- 主要作用1.逻辑删除，2更新状态 -->
+    <update id="manyOperation" parameterType="Object">
+        update tb_pr_in_order a
+        <trim prefix="set" suffixOverrides=",">
+            <if test="yn != 0 and yn >0 " >
+                a.yn = #{yn},
+            </if>
+        </trim>
+        <include refid="Example_Where_Clause_id"/>
+    </update>
+
+
+
+
+
+</mapper>

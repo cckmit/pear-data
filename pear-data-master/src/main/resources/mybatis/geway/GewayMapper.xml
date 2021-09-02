@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pear.data.master.core.mapper.GewayMapper">
+
+
+
+
+    <!-- 定义数据库基本列,只适用代替单表的*-->
+    <sql id="Base_Column_List">
+        a.id,a.geway_name,a.secret_key,a.pay_id,a.attribute_type,
+        a.total_money,a.least_money,a.balance,a.lock_money,a.geway_type,
+        a.is_enable,
+        a.create_time,a.update_time,a.yn
+    </sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim  suffixOverrides="," >
+            <if test="id != null and id != '' " >
+                and a.id = #{id}
+            </if>
+            <if test="gewayName != null and gewayName != '' " >
+                and a.geway_name = #{gewayName}
+            </if>
+            <if test="attributeType != null and attributeType != '' " >
+                and a.attribute_type = #{attributeType}
+            </if>
+            <if test="gewayType != null and gewayType != '' " >
+                and a.geway_type = #{gewayType}
+            </if>
+            <if test="isEnable != null and isEnable != '' " >
+                and a.is_enable = #{isEnable}
+            </if>
+
+            and a.yn = 0
+        </trim>
+    </sql>
+
+
+    <!-- 查询条件_id -->
+    <sql id="Example_Where_Clause_id">
+        where 1=1
+        <trim  suffixOverrides="," >
+            <if test="id != null and id != '' " >
+                and a.id = #{id}
+            </if>
+            and a.yn = 0
+        </trim>
+    </sql>
+
+
+    <!-- 排序条件 -->
+    <sql id="Example_Order_By">
+        order by a.create_time asc
+    </sql>
+
+    <!-- 显示所有数据 -->
+    <select id="findAll" resultType="com.pear.data.master.core.model.geway.GewayModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="findByCondition" parameterType="Object" resultType="com.pear.data.master.core.model.geway.GewayModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 根据条件查询信息-->
+    <select id="findByObject" parameterType="Object" resultType="com.pear.data.master.core.model.geway.GewayModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause"/>
+        limit 1
+    </select>
+
+    <!-- 根据id查询信息-->
+    <select id="findById" parameterType="java.lang.Long" resultType="com.pear.data.master.core.model.geway.GewayModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause_id"/>
+    </select>
+
+
+
+    <!-- 查询总数-->
+    <select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+        select count(1)
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询分页列表 -->
+    <select id="queryByList" parameterType="Object" resultType="com.pear.data.master.core.model.geway.GewayModel">
+        select
+        <include refid="Base_Column_List" />
+        from tb_pr_geway a
+        <include refid="Example_Where_Clause"/>
+        <include refid="Example_Order_By"/>
+        <if test="pageNumber != null and pageNumber != ''" >
+            limit #{start},#{end}
+        </if>
+    </select>
+
+
+    <!-- 添加基本信息 -->
+    <insert id="add" parameterType="com.pear.data.master.core.model.geway.GewayModel" >
+        <!--<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">-->
+        <!--SELECT LAST_INSERT_ID() as id-->
+        <!--</selectKey>-->
+        insert into tb_pr_geway
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="gewayName != null and gewayName != '' " >
+                geway_name,
+            </if>
+            <if test="secretKey != null and secretKey != '' " >
+                secret_key,
+            </if>
+            <if test="payId != null and payId != '' " >
+                pay_id,
+            </if>
+            <if test="attributeType != null and attributeType != '' " >
+                attribute_type,
+            </if>
+            <if test="leastMoney != null and leastMoney != '' " >
+                least_money,
+            </if>
+            <if test="gewayType != null and gewayType != '' " >
+                geway_type,
+            </if>
+            <if test="isEnable != null and isEnable != '' " >
+                is_enable,
+            </if>
+            create_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="gewayName != null and gewayName != '' " >
+                <![CDATA[  #{gewayName}, ]]>
+            </if>
+            <if test="secretKey != null and secretKey != '' " >
+                <![CDATA[  #{secretKey}, ]]>
+            </if>
+            <if test="payId != null and payId != '' " >
+                <![CDATA[  #{payId}, ]]>
+            </if>
+            <if test="attributeType != null and attributeType != '' " >
+                <![CDATA[  #{attributeType}, ]]>
+            </if>
+            <if test="leastMoney != null and leastMoney != '' " >
+                <![CDATA[  #{leastMoney}, ]]>
+            </if>
+            <if test="gewayType != null and gewayType != '' " >
+                <![CDATA[  #{gewayType}, ]]>
+            </if>
+            <if test="isEnable != null and isEnable != '' " >
+                <![CDATA[  #{isEnable}, ]]>
+            </if>
+            NOW(),
+        </trim>
+    </insert>
+
+    <!-- 更新基本信息 -->
+    <update id="update" parameterType="com.pear.data.master.core.model.geway.GewayModel">
+        UPDATE tb_pr_geway a
+        <trim prefix="set" suffixOverrides=",">
+            <if test="gewayName != null and gewayName != '' " >
+                a.geway_name = #{gewayName},
+            </if>
+            <if test="secret_key != null and secret_key != '' " >
+                a.secret_key = #{secret_key},
+            </if>
+            <if test="payId != null and payId != '' " >
+                a.pay_id = #{payId},
+            </if>
+            <if test="attributeType != null and attributeType != '' " >
+                a.attribute_type = #{attributeType},
+            </if>
+            <if test="leastMoney != null and leastMoney != '' " >
+                a.least_money = #{leastMoney},
+            </if>
+            <if test="lockMoney != null and lockMoney != '' " >
+                a.lock_money = #{lockMoney},
+            </if>
+            <if test="gewayType != null and gewayType != '' " >
+                a.geway_type = #{gewayType},
+            </if>
+            <if test="isEnable != null and isEnable != '' " >
+                a.is_enable = #{isEnable},
+            </if>
+            a.update_time = NOW(),
+        </trim>
+        where 1=1
+        and a.id = #{id}
+        and a.yn = 0
+    </update>
+
+    <!-- 主要作用1.逻辑删除，2更新状态 -->
+    <update id="manyOperation" parameterType="Object">
+        update tb_pr_geway a
+        <trim prefix="set" suffixOverrides=",">
+            <if test="yn != 0 and yn >0 " >
+                a.yn = #{yn},
+            </if>
+        </trim>
+        where 1=1
+        and a.id = #{id}
+        and a.yn = 0
+    </update>
+
+
+</mapper>
