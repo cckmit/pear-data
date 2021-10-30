@@ -9,7 +9,7 @@
     <sql id="Base_Column_List">
         a.id,a.order_no,a.channel_id,a.money,a.service_charge,
         a.bank_name,a.subbranch_name,a.account_name,a.bank_card,
-        a.withdraw_status,a.picture_ads,a.balance,a.withdraw_explain,a.remark,
+        a.withdraw_status,a.picture_ads,a.balance,a.withdraw_explain,a.remark,a.curday,
         a.run_num,a.run_status,a.send_num,a.send_status,
         a.create_time,a.update_time,a.yn
     </sql>
@@ -163,6 +163,9 @@
             <if test="remark != null and remark != '' " >
                 remark,
             </if>
+            <if test="curday != null and curday != '' " >
+                curday,
+            </if>
             <if test="runNum != null and runNum != '' " >
                 run_num,
             </if>
@@ -217,6 +220,9 @@
             </if>
             <if test="remark != null and remark != '' " >
                 <![CDATA[  #{remark}, ]]>
+            </if>
+            <if test="curday != null and curday != '' " >
+                <![CDATA[  #{curday}, ]]>
             </if>
             <if test="runNum != null and runNum != '' " >
                 <![CDATA[  #{runNum}, ]]>

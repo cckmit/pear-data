@@ -88,6 +88,11 @@ public class ChannelWithdrawModel extends BasePage implements Serializable {
     private String remark;
 
     /**
+     * 创建日期：存的日期格式20160530
+     */
+    private Integer curday;
+
+    /**
      *运行计算次数
      */
     private Integer runNum;
@@ -292,5 +297,13 @@ public class ChannelWithdrawModel extends BasePage implements Serializable {
 
     public void setYn(Integer yn) {
         this.yn = yn;
+    }
+
+    public Integer getCurday() {
+        return curday;
+    }
+
+    public void setCurday(Integer curday) {
+        this.curday = curday;
     }
 }
