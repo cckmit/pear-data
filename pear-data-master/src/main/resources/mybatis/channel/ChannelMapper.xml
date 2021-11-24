@@ -9,7 +9,7 @@
     <sql id="Base_Column_List">
         a.id,a.account_num,a.pass_wd,a.withdraw_pass_wd,
         a.channel_name,a.channel,a.company_name,a.contacts,a.phone_num,a.total_money,a.balance,a.lock_money,a.secret_key,
-        a.is_google,a.google_key,a.lower_url,a.lower_suc,a.white_list_ip,a.is_synchro,a.withdraw_type,a.channel_type,
+        a.is_google,a.google_key,a.lower_url,a.lower_suc,a.white_list_ip,a.is_synchro,a.send_data_type,a.withdraw_type,a.channel_type,
         a.role_id,a.is_enable,
         a.create_time,a.update_time,a.yn
     </sql>
@@ -184,6 +184,9 @@
             <if test="isSynchro != null and isSynchro != '' " >
                 is_synchro,
             </if>
+            <if test="sendDataType != null and sendDataType != '' " >
+                send_data_type,
+            </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 withdraw_type,
             </if>
@@ -244,6 +247,9 @@
             </if>
             <if test="isSynchro != null and isSynchro != '' " >
                 <![CDATA[  #{isSynchro}, ]]>
+            </if>
+            <if test="sendDataType != null and sendDataType != '' " >
+                <![CDATA[  #{sendDataType}, ]]>
             </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 <![CDATA[  #{withdrawType}, ]]>
@@ -309,6 +315,9 @@
             </if>
             <if test="isSynchro != null and isSynchro != '' " >
                 a.is_synchro = #{isSynchro},
+            </if>
+            <if test="sendDataType != null and sendDataType != '' " >
+                a.send_data_type = #{sendDataType},
             </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 a.withdraw_type = #{withdrawType},
