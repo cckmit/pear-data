@@ -135,6 +135,26 @@ public class GewayCodeModel extends BasePage implements Serializable {
     private String dayLimitMoney;
 
     /**
+     * 属性类型：1全类型，2Android，3IOS
+     */
+    private Integer codeAttributeType;
+
+    /**
+     * 白名单IP：多个以英文逗号分割
+     */
+    private String whiteListIp;
+
+    /**
+     * 接收同步数据的身份key
+     */
+    private String identityKey;
+
+    /**
+     * 请求身份：手动接通道的请求标识
+     */
+    private String sendIdentity;
+
+    /**
      * 是否启用：0初始化属于暂停状态，1表示暂停使用，2正常状态
      */
     private Integer isEnable;
@@ -476,5 +496,37 @@ public class GewayCodeModel extends BasePage implements Serializable {
 
     public void setEndRatio(int endRatio) {
         this.endRatio = endRatio;
+    }
+
+    public Integer getCodeAttributeType() {
+        return codeAttributeType;
+    }
+
+    public void setCodeAttributeType(Integer codeAttributeType) {
+        this.codeAttributeType = codeAttributeType;
+    }
+
+    public String getWhiteListIp() {
+        return whiteListIp;
+    }
+
+    public void setWhiteListIp(String whiteListIp) {
+        this.whiteListIp = whiteListIp;
+    }
+
+    public String getIdentityKey() {
+        return identityKey;
+    }
+
+    public void setIdentityKey(String identityKey) {
+        this.identityKey = identityKey;
+    }
+
+    public String getSendIdentity() {
+        return sendIdentity;
+    }
+
+    public void setSendIdentity(String sendIdentity) {
+        this.sendIdentity = sendIdentity;
     }
 }

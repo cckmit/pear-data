@@ -8,8 +8,8 @@
     <!-- 定义数据库基本列,只适用代替单表的*-->
     <sql id="Base_Column_List">
         a.id,a.code_name,a.pf_geway_code,a.service_charge_type,
-        a.service_charge,a.extra_service_charge,a.pf_geway_code_type,a.money_range
-        ,a.is_enable,
+        a.service_charge,a.extra_service_charge,a.pf_geway_code_type,a.money_range,a.is_jump,
+        a.is_enable,
         a.create_time,a.update_time,a.yn
     </sql>
 
@@ -29,6 +29,9 @@
             </if>
             <if test="pfGewayCodeType != null and pfGewayCodeType != '' " >
                 and a.pf_geway_code_type = #{pfGewayCodeType}
+            </if>
+            <if test="isJump != null and isJump != '' " >
+                and a.is_jump = #{isJump}
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 and a.is_enable = #{isEnable}
@@ -138,6 +141,9 @@
             <if test="moneyRange != null and moneyRange != '' " >
                 money_range,
             </if>
+            <if test="isJump != null and isJump != '' " >
+                is_jump,
+            </if>
             <if test="isEnable != null and isEnable != '' " >
                 is_enable,
             </if>
@@ -165,6 +171,9 @@
             </if>
             <if test="moneyRange != null and moneyRange != '' " >
                 <![CDATA[  #{moneyRange}, ]]>
+            </if>
+            <if test="isJump != null and isJump != '' " >
+                <![CDATA[  #{isJump}, ]]>
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 <![CDATA[  #{isEnable}, ]]>
@@ -197,6 +206,9 @@
             </if>
             <if test="moneyRange != null and moneyRange != '' " >
                 a.money_range = #{moneyRange},
+            </if>
+            <if test="isJump != null and isJump != '' " >
+                a.is_jump = #{isJump},
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 a.is_enable = #{isEnable},

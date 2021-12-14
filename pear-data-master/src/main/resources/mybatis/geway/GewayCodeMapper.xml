@@ -10,7 +10,9 @@
         a.id,a.geway_id,a.geway_code_name,a.my_geway_code,a.geway_code,
         a.interface_ads,a.notify_url,a.send_tag,a.suc_tag,a.big_total_money,a.total_money,a.big_taday_money,
         a.taday_money,a.up_service_charge_type,a.up_service_charge,a.up_extra_service_charge,a.service_charge_type,a.service_charge,a.extra_service_charge,a.money_type,
-        a.money_range,a.open_time,a.day_limit_money,a.is_enable,
+        a.money_range,a.open_time,a.day_limit_money,
+        a.code_attribute_type, a.white_list_ip, a.identity_key, a.send_identity,
+        a.is_enable,
         a.create_time,a.update_time,a.yn
     </sql>
 
@@ -18,7 +20,9 @@
         a.id,a.geway_id,a.geway_code_name,a.my_geway_code,a.geway_code,
         a.interface_ads,a.notify_url,a.send_tag,a.suc_tag,a.big_total_money,a.total_money,a.big_taday_money,
         a.taday_money,a.up_service_charge_type,a.up_service_charge,a.up_extra_service_charge,a.service_charge_type,a.service_charge,a.extra_service_charge,a.money_type,
-        a.money_range,a.open_time,a.day_limit_money,a.is_enable,
+        a.money_range,a.open_time,a.day_limit_money,
+        a.code_attribute_type, a.white_list_ip, a.identity_key, a.send_identity,
+        a.is_enable,
         a.create_time,a.update_time,a.yn,
         b.geway_name,b.secret_key,b.pay_id,b.attribute_type
     </sql>
@@ -42,6 +46,9 @@
             </if>
             <if test="gewayCode != null and gewayCode != '' " >
                 and a.geway_code = #{gewayCode}
+            </if>
+            <if test="codeAttributeType != null and codeAttributeType != '' " >
+                and a.code_attribute_type = #{codeAttributeType}
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 and a.is_enable = #{isEnable}
@@ -202,6 +209,18 @@
             <if test="dayLimitMoney != null and dayLimitMoney != '' " >
                 day_limit_money,
             </if>
+            <if test="codeAttributeType != null and codeAttributeType != '' " >
+                code_attribute_type,
+            </if>
+            <if test="whiteListIp != null and whiteListIp != '' " >
+                white_list_ip,
+            </if>
+            <if test="identityKey != null and identityKey != '' " >
+                identity_key,
+            </if>
+            <if test="sendIdentity != null and sendIdentity != '' " >
+                send_identity,
+            </if>
             <if test="isEnable != null and isEnable != '' " >
                 is_enable,
             </if>
@@ -274,6 +293,18 @@
             </if>
             <if test="dayLimitMoney != null and dayLimitMoney != '' " >
                 <![CDATA[  #{dayLimitMoney}, ]]>
+            </if>
+            <if test="codeAttributeType != null and codeAttributeType != '' " >
+                <![CDATA[  #{codeAttributeType}, ]]>
+            </if>
+            <if test="whiteListIp != null and whiteListIp != '' " >
+                <![CDATA[  #{whiteListIp}, ]]>
+            </if>
+            <if test="identityKey != null and identityKey != '' " >
+                <![CDATA[  #{identityKey}, ]]>
+            </if>
+            <if test="sendIdentity != null and sendIdentity != '' " >
+                <![CDATA[  #{sendIdentity}, ]]>
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 <![CDATA[  #{isEnable}, ]]>
@@ -351,6 +382,18 @@
             </if>
             <if test="dayLimitMoney != null and dayLimitMoney != '' " >
                 a.day_limit_money = #{dayLimitMoney},
+            </if>
+            <if test="codeAttributeType != null and codeAttributeType != '' " >
+                a.code_attribute_type = #{codeAttributeType},
+            </if>
+            <if test="whiteListIp != null and whiteListIp != '' " >
+                a.white_list_ip = #{whiteListIp},
+            </if>
+            <if test="identityKey != null and identityKey != '' " >
+                a.identity_key = #{identityKey},
+            </if>
+            <if test="sendIdentity != null and sendIdentity != '' " >
+                a.send_identity = #{sendIdentity},
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 a.is_enable = #{isEnable},

@@ -55,6 +55,11 @@ public class PlatformGewayCodeModel extends BasePage implements Serializable {
     private String moneyRange;
 
     /**
+     * 是否要进行跳转：1不跳转，2跳转
+     */
+    private Integer isJump;
+
+    /**
      * 是否启用：0初始化属于暂停状态，1表示暂停使用，2正常状态
      */
     private Integer isEnable;
@@ -168,5 +173,13 @@ public class PlatformGewayCodeModel extends BasePage implements Serializable {
 
     public void setYn(Integer yn) {
         this.yn = yn;
+    }
+
+    public Integer getIsJump() {
+        return isJump;
+    }
+
+    public void setIsJump(Integer isJump) {
+        this.isJump = isJump;
     }
 }
