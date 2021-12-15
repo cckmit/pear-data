@@ -55,7 +55,7 @@ public class GewayCodeServiceImpl<T> extends BaseServiceImpl<T> implements Geway
     public GewayCodeModel getGewayCodeModel(GewayCodeModel model, int isCache) throws Exception {
         GewayCodeModel dataModel = null;
         if (isCache == ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO){
-            String strKeyCache = CachedKeyUtils.getCacheKeyData(DtCacheKey.GEWAY_CODE, model.getId());
+            String strKeyCache = CachedKeyUtils.getCacheKeyData(DtCacheKey.GEWAY_CODE, model.getId(), model.getIdentityKey());
             String strCache = (String) ComponentUtil.redisService.get(strKeyCache);
             if (!StringUtils.isBlank(strCache)) {
                 // 从缓存里面获取数据

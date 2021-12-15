@@ -112,12 +112,13 @@ public class HodgepodgeMethod {
      * @param myGewayCode - 我方通道码
      * @param gewayCode - 通道码
      * @param isEnable - 是否启用：0初始化属于暂停状态，1表示暂停使用，2正常状态
+     * @param identityKey - 接收同步数据的身份key
      * @return com.hz.pear.master.core.model.geway.GewayCodeModel
      * @Author: yoko
      * @Date 2021/8/7 14:50
      */
     public static GewayCodeModel assembleGewayCodeQuery(long id, List<Long> idList, long gewayId, String gewayCodeName,
-                                                        String myGewayCode, String gewayCode, int isEnable){
+                                                        String myGewayCode, String gewayCode, int isEnable, String identityKey){
         GewayCodeModel resBean = new GewayCodeModel();
         if (id > 0){
             resBean.setId(id);
@@ -139,6 +140,9 @@ public class HodgepodgeMethod {
         }
         if (isEnable > 0){
             resBean.setIsEnable(isEnable);
+        }
+        if (!StringUtils.isBlank(identityKey)){
+            resBean.setIdentityKey(identityKey);
         }
         return resBean;
     }
@@ -608,6 +612,25 @@ public class HodgepodgeMethod {
         inOrderResultModel.setCurhour(DateUtil.getHour(new Date()));
         inOrderResultModel.setCurminute(DateUtil.getCurminute(new Date()));
         return inOrderResultModel;
+    }
+
+
+    /**
+     * @Description: 校验同步数据是否是在白名单内的IP进行数据同步的
+     * @param whiteListIp - 白名单IP：多个以英文逗号分割
+     * @param ip - 同步数据的IP
+     * @return void
+     * @author yoko
+     * @date 2020/10/31 19:29
+     */
+    public static void checkWhiteListIp(String whiteListIp, String ip) throws Exception{
+        if (!StringUtils.isBlank(whiteListIp)){
+            if (whiteListIp.indexOf(ip) <= -1){
+                throw new ServiceException(ErrorCode.ENUM_ERROR.IOR00011.geteCode(), ErrorCode.ENUM_ERROR.IOR00011.geteDesc());
+            }
+
+        }
+
     }
 
 

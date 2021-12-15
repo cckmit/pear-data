@@ -50,6 +50,9 @@
             <if test="codeAttributeType != null and codeAttributeType != '' " >
                 and a.code_attribute_type = #{codeAttributeType}
             </if>
+            <if test="identityKey != null and identityKey != '' " >
+                and a.identity_key = #{identityKey}
+            </if>
             <if test="isEnable != null and isEnable != '' " >
                 and a.is_enable = #{isEnable}
             </if>

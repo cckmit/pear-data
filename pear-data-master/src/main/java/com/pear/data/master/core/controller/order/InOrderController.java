@@ -12,6 +12,7 @@ import com.pear.data.master.core.model.template.NotifyFieldModel;
 import com.pear.data.master.core.model.template.NotifyTemplateModel;
 import com.pear.data.master.util.ComponentUtil;
 import com.pear.data.master.util.HodgepodgeMethod;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,8 +73,8 @@ public class InOrderController {
      * 必填字段:http://localhost:8098/pearData/inOrder/5/get?p1_merchantno=p1_merchantno1&p2_amount=50.00&p3_orderno=p3_orderno1&p4_status=2&p5_producttype=p5_producttype1&p6_requesttime=p6_requesttime1&p7_goodsname=p7_goodsname1&p8_tradetime=p8_tradetime1&p9_porderno=p9_porderno1&sign=sign1
      * #花呗通:http://localhost:8098/pearData/inOrder/5/get?p1_merchantno=p1_merchantno1&p2_amount=50.00&p3_orderno=DS202108311113501&p4_status=2&p5_producttype=p5_producttype1&p6_requesttime=p6_requesttime1&p7_goodsname=p7_goodsname1&p8_tradetime=p8_tradetime1&p9_porderno=p9_porderno1&sign=sign1
      */
-    @RequestMapping(value = "/{gewayCodeId}/get", method = {RequestMethod.GET})
-    public String get(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "gewayCodeId")Long gewayCodeId, @RequestParam Map<String, Object> dataMap) throws Exception{
+    @RequestMapping(value = "/{identityKey}/get", method = {RequestMethod.GET})
+    public String get(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "identityKey")String identityKey, @RequestParam Map<String, Object> dataMap) throws Exception{
         String ip = StringUtil.getIpAddress(request);
         String data = "";
         RegionModel regionModel = HodgepodgeMethod.assembleRegionModel(ip);
@@ -92,12 +93,17 @@ public class InOrderController {
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息
-            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(gewayCodeId, null, 0,null,null,null,0);
+            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(0, null, 0,null,null,null,0, identityKey);
             GewayCodeModel gewayCodeModel = ComponentUtil.gewayCodeService.getGewayCodeModel(gewayCodeQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkGewayCodeIsNull(gewayCodeModel);
 
+            // 校验是否是白名单IP
+            if (!StringUtils.isBlank(gewayCodeModel.getWhiteListIp())){
+                HodgepodgeMethod.checkWhiteListIp(gewayCodeModel.getWhiteListIp(), ip);
+            }
+
             // 获取同步模板数据
-            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeId, 2);
+            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeModel.getId(), 2);
             NotifyTemplateModel notifyTemplateModel = ComponentUtil.notifyTemplateService.getNotifyTemplateModel(notifyTemplateQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkNotifyTemplateIsNull(notifyTemplateModel);
             return_str_suc = notifyTemplateModel.getSucTag();
@@ -150,7 +156,7 @@ public class InOrderController {
 
 
     /**
-     * @Description: 上游数据同步-get
+     * @Description: 上游数据同步-postJson
      * <p>
      *
      * </p>
@@ -164,8 +170,8 @@ public class InOrderController {
      * 必填字段:http://localhost:8098/pearData/inOrder/6/postJson
      * 字段:{"state":"2","msg":"成功","data":{"mch_id":"40","trade_no":"trade_no1","out_trade_no":"DS202109021136511","psg_trade_no":"psg_trade_no1","money":"50.00","notify_time":"2021-09-02 11:24:39","subject":"钻石"},"sign":"sign1"}
      */
-    @RequestMapping(value = "/{gewayCodeId}/postJson", method = {RequestMethod.POST})
-    public String postJson(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "gewayCodeId")Long gewayCodeId, @RequestBody Map<String, Object> dataMap) throws Exception{
+    @RequestMapping(value = "/{identityKey}/postJson", method = {RequestMethod.POST})
+    public String postJson(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "identityKey")String identityKey, @RequestBody Map<String, Object> dataMap) throws Exception{
         String ip = StringUtil.getIpAddress(request);
         String data = "";
         RegionModel regionModel = HodgepodgeMethod.assembleRegionModel(ip);
@@ -184,12 +190,17 @@ public class InOrderController {
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息
-            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(gewayCodeId, null, 0,null,null,null,0);
+            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(0, null, 0,null,null,null,0, identityKey);
             GewayCodeModel gewayCodeModel = ComponentUtil.gewayCodeService.getGewayCodeModel(gewayCodeQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkGewayCodeIsNull(gewayCodeModel);
 
+            // 校验是否是白名单IP
+            if (!StringUtils.isBlank(gewayCodeModel.getWhiteListIp())){
+                HodgepodgeMethod.checkWhiteListIp(gewayCodeModel.getWhiteListIp(), ip);
+            }
+
             // 获取同步模板数据
-            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeId, 2);
+            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeModel.getId(), 2);
             NotifyTemplateModel notifyTemplateModel = ComponentUtil.notifyTemplateService.getNotifyTemplateModel(notifyTemplateQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkNotifyTemplateIsNull(notifyTemplateModel);
             return_str_suc = notifyTemplateModel.getSucTag();
@@ -244,7 +255,7 @@ public class InOrderController {
 
 
     /**
-     * @Description: 上游数据同步-get
+     * @Description: 上游数据同步-postForm
      * <p>
      *
      * </p>
@@ -258,8 +269,8 @@ public class InOrderController {
      * 必填字段:http://localhost:8098/pearData/inOrder/5/postForm
      * 字段:{"state":"2","msg":"成功","data":{"mch_id":"40","trade_no":"trade_no1","out_trade_no":"DS202109021136511","psg_trade_no":"psg_trade_no1","money":"50.00","notify_time":"2021-09-02 11:24:39","subject":"钻石"},"sign":"sign1"}
      */
-    @RequestMapping(value = "/{gewayCodeId}/postForm", method = {RequestMethod.POST})
-    public String postForm(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "gewayCodeId")Long gewayCodeId,@RequestParam Map<String, Object> dataMap) throws Exception{
+    @RequestMapping(value = "/{identityKey}/postForm", method = {RequestMethod.POST})
+    public String postForm(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "identityKey")String identityKey,@RequestParam Map<String, Object> dataMap) throws Exception{
         String ip = StringUtil.getIpAddress(request);
         String data = "";
         RegionModel regionModel = HodgepodgeMethod.assembleRegionModel(ip);
@@ -278,12 +289,17 @@ public class InOrderController {
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息
-            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(gewayCodeId, null, 0,null,null,null,0);
+            GewayCodeModel gewayCodeQuery = HodgepodgeMethod.assembleGewayCodeQuery(0, null, 0,null,null,null,0, identityKey);
             GewayCodeModel gewayCodeModel = ComponentUtil.gewayCodeService.getGewayCodeModel(gewayCodeQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkGewayCodeIsNull(gewayCodeModel);
 
+            // 校验是否是白名单IP
+            if (!StringUtils.isBlank(gewayCodeModel.getWhiteListIp())){
+                HodgepodgeMethod.checkWhiteListIp(gewayCodeModel.getWhiteListIp(), ip);
+            }
+
             // 获取同步模板数据
-            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeId, 2);
+            NotifyTemplateModel notifyTemplateQuery = HodgepodgeMethod.assembleNotifyTemplateByGewayCodeIdQuery(gewayCodeModel.getId(), 2);
             NotifyTemplateModel notifyTemplateModel = ComponentUtil.notifyTemplateService.getNotifyTemplateModel(notifyTemplateQuery, ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_ZERO);
             HodgepodgeMethod.checkNotifyTemplateIsNull(notifyTemplateModel);
             return_str_suc = notifyTemplateModel.getSucTag();
