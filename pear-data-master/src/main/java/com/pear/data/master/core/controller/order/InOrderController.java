@@ -89,7 +89,7 @@ public class InOrderController {
 
         // 打印请求的数据
         if (logSwitch == ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_TWO){
-            log.info("---------InOrderController.get()-all-data-json:" + JSON.toJSONString(dataMap));
+            log.info("---------InOrderController.get()-all-data-json:" + JSON.toJSONString(dataMap) + "ip:" + ip);
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息
@@ -186,7 +186,7 @@ public class InOrderController {
 
         // 打印请求的数据
         if (logSwitch == ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_TWO){
-            log.info("---------InOrderController.postJson()-all-data-json:" + JSON.toJSONString(dataMap));
+            log.info("---------InOrderController.postJson()-all-data-json:" + JSON.toJSONString(dataMap) + "ip:" + ip);
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息
@@ -285,7 +285,7 @@ public class InOrderController {
 
         // 打印请求的数据
         if (logSwitch == ServerConstant.PUBLIC_CONSTANT.SIZE_VALUE_TWO){
-            log.info("---------InOrderController.postForm()-all-data-json:" + JSON.toJSONString(dataMap));
+            log.info("---------InOrderController.postForm()-all-data-json:" + JSON.toJSONString(dataMap) + "ip:" + ip);
         }
         try{
             // 根据通道码ID校验是否有这个通道码信息

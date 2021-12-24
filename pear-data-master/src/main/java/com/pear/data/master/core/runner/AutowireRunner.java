@@ -3,6 +3,7 @@ package com.pear.data.master.core.runner;
 import com.pear.data.master.core.common.redis.RedisIdService;
 import com.pear.data.master.core.common.redis.RedisService;
 import com.pear.data.master.core.common.utils.constant.LoadConstant;
+import com.pear.data.master.core.model.strategy.StrategyModel;
 import com.pear.data.master.core.service.*;
 import com.pear.data.master.util.ComponentUtil;
 import org.slf4j.Logger;
@@ -204,6 +205,15 @@ public class AutowireRunner implements ApplicationRunner {
         @Override
         public void run() {
             log.info("启动啦............");
+
+            while (1==1) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ComponentUtil.strategyService.findByCondition(new StrategyModel());
+            }
         }
     }
 
