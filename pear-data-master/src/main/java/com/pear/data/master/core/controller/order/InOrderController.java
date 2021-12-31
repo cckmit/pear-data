@@ -126,6 +126,11 @@ public class InOrderController {
                 InOrderModel inOrderModel = (InOrderModel)ComponentUtil.inOrderService.findByObject(inOrderQuery);
                 HodgepodgeMethod.checkInOrderIsNull(inOrderModel);
 
+                // check订单状态是否是初始化状态
+                HodgepodgeMethod.checkInOrderOrderStatus(inOrderModel);
+
+
+
                 // check订单金额与同步数据的订单金额是否一致
                 HodgepodgeMethod.checkTotalAmount(inOrderResultModel, inOrderModel.getTotalAmount());
 
@@ -223,6 +228,9 @@ public class InOrderController {
                 InOrderModel inOrderQuery = HodgepodgeMethod.assembleInOrderByOrderNoQuery(inOrderResultModel.getMyTradeNo());
                 InOrderModel inOrderModel = (InOrderModel)ComponentUtil.inOrderService.findByObject(inOrderQuery);
                 HodgepodgeMethod.checkInOrderIsNull(inOrderModel);
+
+                // check订单状态是否是初始化状态
+                HodgepodgeMethod.checkInOrderOrderStatus(inOrderModel);
 
                 // check订单金额与同步数据的订单金额是否一致
                 HodgepodgeMethod.checkTotalAmount(inOrderResultModel, inOrderModel.getTotalAmount());
@@ -322,6 +330,9 @@ public class InOrderController {
                 InOrderModel inOrderQuery = HodgepodgeMethod.assembleInOrderByOrderNoQuery(inOrderResultModel.getMyTradeNo());
                 InOrderModel inOrderModel = (InOrderModel)ComponentUtil.inOrderService.findByObject(inOrderQuery);
                 HodgepodgeMethod.checkInOrderIsNull(inOrderModel);
+
+                // check订单状态是否是初始化状态
+                HodgepodgeMethod.checkInOrderOrderStatus(inOrderModel);
 
                 // check订单金额与同步数据的订单金额是否一致
                 HodgepodgeMethod.checkTotalAmount(inOrderResultModel, inOrderModel.getTotalAmount());

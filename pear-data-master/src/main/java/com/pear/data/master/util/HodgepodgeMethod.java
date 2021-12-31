@@ -634,6 +634,23 @@ public class HodgepodgeMethod {
     }
 
 
+    /**
+     * @Description: check代收订单的状态是否不是初始化状态
+     * <p>
+     *     接收同步数据时：订单如果不是初始化状态，则数据不做接收
+     * </p>
+     * @param inOrderModel
+     * @return
+     * @Author: yoko
+     * @Date 2021/9/1 16:05
+     */
+    public static void checkInOrderOrderStatus(InOrderModel inOrderModel) throws Exception{
+        if (inOrderModel.getOrderStatus() != 1){
+            throw new ServiceException(ErrorCode.ENUM_ERROR.IOR00012.geteCode(), ErrorCode.ENUM_ERROR.IOR00012.geteDesc());
+        }
+    }
+
+
 
 
 
