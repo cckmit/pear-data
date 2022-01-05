@@ -3,6 +3,7 @@ package com.pear.data.master.core.runner;
 import com.pear.data.master.core.common.redis.RedisIdService;
 import com.pear.data.master.core.common.redis.RedisService;
 import com.pear.data.master.core.common.utils.constant.LoadConstant;
+import com.pear.data.master.core.model.channel.ChannelModel;
 import com.pear.data.master.core.model.strategy.StrategyModel;
 import com.pear.data.master.core.service.*;
 import com.pear.data.master.util.ComponentUtil;
@@ -15,6 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Component
@@ -212,7 +214,10 @@ public class AutowireRunner implements ApplicationRunner {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ComponentUtil.strategyService.findByCondition(new StrategyModel());
+                List<ChannelModel> channelList = ComponentUtil.channelService.findByCondition(new ChannelModel());
+                for (ChannelModel channelModel : channelList){
+                    log.info("id:" + channelModel.getId() + ", channelName:" + channelModel.getChannelName() + ", totalMoney:" + channelModel.getTotalMoney() + ", balance:" + channelModel.getBalance() + ", lockMoney:" + channelModel.getLockMoney());
+                }
             }
         }
     }
