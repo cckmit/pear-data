@@ -8,6 +8,7 @@
     <!-- 定义数据库基本列,只适用代替单表的*-->
     <sql id="Base_Column_List">
         a.id,a.alias,a.channel_id,a.pf_geway_code_id,
+        a.service_charge_type,a.service_charge,a.extra_service_charge,
         a.is_enable,
         a.create_time,a.update_time,a.yn
     </sql>
@@ -25,6 +26,9 @@
             </if>
             <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
                 and a.pf_geway_code_id = #{pfGewayCodeId}
+            </if>
+            <if test="serviceChargeType != null and serviceChargeType != '' " >
+                and a.service_charge_type = #{serviceChargeType}
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 and a.is_enable = #{isEnable}
@@ -119,6 +123,15 @@
             <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
                 pf_geway_code_id,
             </if>
+            <if test="serviceChargeType != null and serviceChargeType != '' " >
+                service_charge_type,
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                service_charge,
+            </if>
+            <if test="extraServiceCharge != null and extraServiceCharge != '' " >
+                extra_service_charge,
+            </if>
             <if test="isEnable != null and isEnable != '' " >
                 is_enable,
             </if>
@@ -131,6 +144,15 @@
             </if>
             <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
                 <![CDATA[  #{pfGewayCodeId}, ]]>
+            </if>
+            <if test="serviceChargeType != null and serviceChargeType != '' " >
+                <![CDATA[  #{serviceChargeType}, ]]>
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                <![CDATA[  #{serviceCharge}, ]]>
+            </if>
+            <if test="extraServiceCharge != null and extraServiceCharge != '' " >
+                <![CDATA[  #{extraServiceCharge}, ]]>
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 <![CDATA[  #{isEnable}, ]]>
@@ -149,6 +171,13 @@
             <if test="pfGewayCodeId != null and pfGewayCodeId != '' " >
                 a.pf_geway_code_id = #{pfGewayCodeId},
             </if>
+            <if test="serviceChargeType != null and serviceChargeType != '' " >
+                a.service_charge_type = #{serviceChargeType},
+            </if>
+            <if test="serviceCharge != null and serviceCharge != '' " >
+                a.service_charge = #{serviceCharge},
+            </if>
+            a.extra_service_charge = #{extraServiceCharge},
             <if test="isEnable != null and isEnable != '' " >
                 a.is_enable = #{isEnable},
             </if>

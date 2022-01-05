@@ -39,6 +39,21 @@ public class ChannelPlatformGewayCodeLinkModel extends BasePage implements Seria
     private Long pfGewayCodeId;
 
     /**
+     * 费率类型：1固定费率，2额外费率
+     */
+    private Integer serviceChargeType;
+
+    /**
+     * 费率
+     */
+    private String serviceCharge;
+
+    /**
+     * 费率之额外费率：每单还要收取额外的手续费
+     */
+    private String extraServiceCharge;
+
+    /**
      * 是否启用：0初始化属于暂停状态，1表示暂停使用，2正常状态
      */
     private Integer isEnable;
@@ -88,6 +103,30 @@ public class ChannelPlatformGewayCodeLinkModel extends BasePage implements Seria
 
     public void setPfGewayCodeId(Long pfGewayCodeId) {
         this.pfGewayCodeId = pfGewayCodeId;
+    }
+
+    public Integer getServiceChargeType() {
+        return serviceChargeType;
+    }
+
+    public void setServiceChargeType(Integer serviceChargeType) {
+        this.serviceChargeType = serviceChargeType;
+    }
+
+    public String getServiceCharge() {
+        return serviceCharge;
+    }
+
+    public void setServiceCharge(String serviceCharge) {
+        this.serviceCharge = serviceCharge;
+    }
+
+    public String getExtraServiceCharge() {
+        return extraServiceCharge;
+    }
+
+    public void setExtraServiceCharge(String extraServiceCharge) {
+        this.extraServiceCharge = extraServiceCharge;
     }
 
     public Integer getIsEnable() {

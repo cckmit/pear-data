@@ -3,6 +3,7 @@ package com.pear.data.master.core.runner;
 import com.pear.data.master.core.common.redis.RedisIdService;
 import com.pear.data.master.core.common.redis.RedisService;
 import com.pear.data.master.core.common.utils.constant.LoadConstant;
+import com.pear.data.master.core.model.agent.AgentModel;
 import com.pear.data.master.core.model.channel.ChannelModel;
 import com.pear.data.master.core.model.strategy.StrategyModel;
 import com.pear.data.master.core.service.*;
@@ -214,10 +215,19 @@ public class AutowireRunner implements ApplicationRunner {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                log.info("渠道-start");
                 List<ChannelModel> channelList = ComponentUtil.channelService.findByCondition(new ChannelModel());
                 for (ChannelModel channelModel : channelList){
                     log.info("id:" + channelModel.getId() + ", channelName:" + channelModel.getChannelName() + ", totalMoney:" + channelModel.getTotalMoney() + ", balance:" + channelModel.getBalance() + ", lockMoney:" + channelModel.getLockMoney());
                 }
+                log.info("渠道-end");
+
+                log.info("代理-start");
+                List<AgentModel> agentList = ComponentUtil.agentService.findByCondition(new AgentModel());
+                for (AgentModel agentModel : agentList){
+                    log.info("id:" + agentModel.getId() + ", agentName:" + agentModel.getAgentName() + ", totalMoney:" + agentModel.getTotalMoney() + ", balance:" + agentModel.getBalance() + ", lockMoney:" + agentModel.getLockMoney());
+                }
+                log.info("代理-end");
             }
         }
     }

@@ -64,6 +64,11 @@ public class AgentModel extends BasePage implements Serializable {
     private Integer withdrawType;
 
     /**
+     * 代理类型：1针对渠道，2针对通道，3两者针对
+     */
+    private Integer agentType;
+
+    /**
      * 所属角色ID
      */
     private Long roleId;
@@ -158,6 +163,15 @@ public class AgentModel extends BasePage implements Serializable {
 
     public void setWithdrawType(Integer withdrawType) {
         this.withdrawType = withdrawType;
+    }
+
+
+    public Integer getAgentType() {
+        return agentType;
+    }
+
+    public void setAgentType(Integer agentType) {
+        this.agentType = agentType;
     }
 
     public Long getRoleId() {

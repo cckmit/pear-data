@@ -9,7 +9,7 @@
     <sql id="Base_Column_List">
         a.id,a.account_num,a.pass_wd,a.withdraw_pass_wd,
         a.agent_name,a.total_money,a.balance,a.lock_money,
-        a.withdraw_type,a.channel_type,
+        a.withdraw_type,a.agent_type,
         a.role_id,a.is_enable,
         a.create_time,a.update_time,a.yn
     </sql>
@@ -27,6 +27,9 @@
             </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 and a.withdraw_type = #{withdrawType}
+            </if>
+            <if test="agentType != null and agentType != '' " >
+                and a.agent_type = #{agentType}
             </if>
             <if test="isEnable != null and isEnable != '' " >
                 and a.is_enable = #{isEnable}
@@ -130,6 +133,9 @@
             <if test="withdrawType != null and withdrawType != '' " >
                 withdraw_type,
             </if>
+            <if test="agentType != null and agentType != '' " >
+                agent_type,
+            </if>
             <if test="roleId != null and roleId != '' " >
                 role_id,
             </if>
@@ -154,6 +160,9 @@
             </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 <![CDATA[  #{withdrawType}, ]]>
+            </if>
+            <if test="agentType != null and agentType != '' " >
+                <![CDATA[  #{agentType}, ]]>
             </if>
             <if test="roleId != null and roleId != '' " >
                 <![CDATA[  #{roleId}, ]]>
@@ -183,6 +192,9 @@
             </if>
             <if test="withdrawType != null and withdrawType != '' " >
                 a.withdraw_type = #{withdrawType},
+            </if>
+            <if test="agentType != null and agentType != '' " >
+                a.agent_type = #{agentType},
             </if>
             <if test="roleId != null and roleId != '' " >
                 a.role_id = #{roleId},
