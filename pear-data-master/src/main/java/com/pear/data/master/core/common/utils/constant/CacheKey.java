@@ -89,4 +89,47 @@ public interface CacheKey {
      */
     String NOTIFY_FIELD_LIST = "-16";
 
+    /**
+     * 代收跳转的token
+     */
+    String IN_ORDER_JUMP_TOKEN = "-17";
+
+    /**
+     * 代收，支付成功后跳转地址的token
+     */
+    String IN_ORDER_RETURN_URL_TOKEN = "-18";
+
+    /**
+     * token锁住操作
+     * <p>
+     *     跳转时token锁住操作
+     * </p>
+     */
+    String LOCK_IN_ORDER_JUMP_TOKEN = "-19";
+
+    /**
+     * 渠道号
+     * <p>
+     *     根据渠道号存储渠道信息
+     * </p>
+     */
+    String CHANNEL_NUM = "-20";
+
+    /**
+     * 频繁请求的IP
+     * <p>
+     *     缓存中存的请求频繁的IP
+     * </p>
+     */
+    String FREQUENTLY_IP = "-frequently-ip";
+
+
+    /**
+     * 频繁请求的渠道
+     * <p>
+     *     缓存中存的请求频繁的渠道
+     * </p>
+     */
+    String FREQUENTLY_CHANNEL = "-frequently-channel";
+
 }

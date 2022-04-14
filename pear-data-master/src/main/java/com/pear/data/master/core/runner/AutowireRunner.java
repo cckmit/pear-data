@@ -2,6 +2,8 @@ package com.pear.data.master.core.runner;
 
 import com.pear.data.master.core.common.redis.RedisIdService;
 import com.pear.data.master.core.common.redis.RedisService;
+import com.pear.data.master.core.common.utils.constant.CacheKey;
+import com.pear.data.master.core.common.utils.constant.CachedKeyUtils;
 import com.pear.data.master.core.common.utils.constant.LoadConstant;
 import com.pear.data.master.core.model.agent.AgentModel;
 import com.pear.data.master.core.model.channel.ChannelModel;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @Component
@@ -218,6 +221,9 @@ public class AutowireRunner implements ApplicationRunner {
                 log.info("渠道-start");
                 List<ChannelModel> channelList = ComponentUtil.channelService.findByCondition(new ChannelModel());
                 for (ChannelModel channelModel : channelList){
+                    // 把渠道号存储到redis中
+                    String strKeyCache = CachedKeyUtils.getCacheKey(CacheKey.CHANNEL_NUM, channelModel.getChannel());
+                    ComponentUtil.redisService.set(strKeyCache, channelModel.getChannel(), 3, TimeUnit.SECONDS);
                     log.info("id:" + channelModel.getId() + ", channelName:" + channelModel.getChannelName() + ", totalMoney:" + channelModel.getTotalMoney() + ", balance:" + channelModel.getBalance() + ", lockMoney:" + channelModel.getLockMoney());
                 }
                 log.info("渠道-end");
